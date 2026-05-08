@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Amandeep Dhaliwal | Academic Leader & Researcher</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:   #0a0e1a;
+      --navy2:  #111827;
+      --gold:   #c9a84c;
+      --gold2:  #e6c97a;
+      --cream:  #f5f0e8;
+      --muted:  #8892a4;
+      --border: rgba(201,168,76,0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ---------- SCROLLBAR ---------- */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ---------- NOISE GRAIN OVERLAY ---------- */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: .35;
+    }
+
+    /* ---------- SECTION FADE-IN ---------- */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ---------- NAV ---------- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      background: rgba(10,14,26,.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--gold);
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); font-size: .85rem; letter-spacing: .08em;
+      text-transform: uppercase; text-decoration: none;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--gold2); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span {
+      width: 24px; height: 2px; background: var(--gold); border-radius: 2px;
+      transition: all .3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: rgba(10,14,26,.97);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      gap: 1.2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--cream); font-size: 1rem;
+      text-decoration: none; letter-spacing: .06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border); padding-bottom: .8rem;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ---------- HERO ---------- */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 7rem 1.5rem 4rem;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-glow {
+      position: absolute; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; text-align: center; max-width: 860px; }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: .75rem; letter-spacing: .2em; color: var(--gold);
+      text-transform: uppercase; margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: .6rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 32px; height: 1px; background: var(--gold); opacity: .6;
+    }
+    h1.hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700; line-height: 1.08;
+      color: var(--cream);
+      margin-bottom: .5rem;
+    }
+    h1.hero-name em { font-style: italic; color: var(--gold2); }
+    .typing-wrapper {
+      min-height: 2.2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(.85rem, 2.2vw, 1.1rem);
+      color: var(--gold);
+      letter-spacing: .04em;
+      margin: 1.4rem 0 2rem;
+    }
+    .cursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--gold); margin-left: 2px;
+      animation: blink .7s step-end infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-desc {
+      font-size: clamp(.9rem, 1.8vw, 1.05rem);
+      color: var(--muted); line-height: 1.8; max-width: 640px; margin: 0 auto 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn-gold {
+      padding: .75rem 2rem;
+      background: var(--gold); color: var(--navy);
+      font-size: .85rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; text-decoration: none;
+      border-radius: 2px;
+      transition: background .25s, transform .2s;
+    }
+    .btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline {
+      padding: .75rem 2rem;
+      border: 1px solid var(--gold); color: var(--gold);
+      font-size: .85rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; text-decoration: none;
+      border-radius: 2px;
+      transition: background .25s, color .25s, transform .2s;
+    }
+    .btn-outline:hover {
+      background: rgba(201,168,76,.1); transform: translateY(-2px);
+    }
+
+    /* ---------- STATS BAR ---------- */
+    .stats-bar {
+      background: rgba(17,24,39,.7);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-inner {
+      max-width: 1200px; margin: auto;
+      display: flex; flex-wrap: wrap;
+      padding: 1.6rem 1.5rem; gap: 1.5rem;
+      justify-content: space-around;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700; color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .72rem; color: var(--muted);
+      letter-spacing: .12em; text-transform: uppercase; margin-top: .3rem;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section { padding: 6rem 1.5rem; }
+    .section-inner { max-width: 1200px; margin: auto; }
+    .section-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem; letter-spacing: .22em; color: var(--gold);
+      text-transform: uppercase; margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; color: var(--cream);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .section-title span { color: var(--gold); font-style: italic; }
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 3rem;
+    }
+
+    /* ---------- ABOUT ---------- */
+    #about { background: var(--navy2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.6fr;
+      gap: 4rem; align-items: start;
+    }
+    .about-card {
+      background: rgba(201,168,76,.05);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 2rem;
+    }
+    .profile-badge {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #8a6a1a);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--navy); font-weight: 700;
+      margin: 0 auto 1.5rem;
+    }
+    .about-meta { text-align: center; }
+    .about-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--cream); margin-bottom: .25rem;
+    }
+    .about-role { font-size: .8rem; color: var(--gold); letter-spacing: .06em; }
+    .about-links { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .6rem; }
+    .about-link {
+      display: flex; align-items: center; gap: .7rem;
+      font-size: .78rem; color: var(--muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .about-link:hover { color: var(--gold2); }
+    .about-link-icon {
+      width: 24px; height: 24px; border-radius: 3px;
+      background: rgba(201,168,76,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; color: var(--gold); flex-shrink: 0;
+    }
+    .about-text p {
+      color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem;
+      font-size: .95rem;
+    }
+    .expertise-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
+    .tag {
+      padding: .35rem .9rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: .72rem; color: var(--gold);
+      letter-spacing: .06em; text-transform: uppercase;
+      background: rgba(201,168,76,.05);
+    }
+
+    /* ---------- EXPERIENCE ---------- */
+    #experience { background: var(--navy); }
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 2rem; }
+    .timeline-dot {
+      position: absolute; left: -2.15rem; top: .4rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.25);
+    }
+    .timeline-period {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem; color: var(--gold); letter-spacing: .1em;
+      margin-bottom: .4rem;
+    }
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--cream); margin-bottom: .2rem;
+    }
+    .timeline-org { font-size: .85rem; color: var(--muted); margin-bottom: .8rem; }
+    .timeline-points { list-style: none; }
+    .timeline-points li {
+      font-size: .88rem; color: var(--muted); line-height: 1.75;
+      padding-left: 1rem; position: relative; margin-bottom: .35rem;
+    }
+    .timeline-points li::before {
+      content: '›'; position: absolute; left: 0; color: var(--gold);
+    }
+
+    /* ---------- RESEARCH ---------- */
+    #research { background: var(--navy2); }
+    .research-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .pub-card {
+      background: rgba(10,14,26,.6);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 1.5rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .pub-card:hover {
+      border-color: rgba(201,168,76,.5); transform: translateY(-3px);
+    }
+    .pub-badge {
+      display: inline-block;
+      padding: .2rem .6rem; border-radius: 2px;
+      font-family: 'DM Mono', monospace;
+      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .badge-q1 { background: rgba(201,168,76,.15); color: var(--gold2); }
+    .badge-q2 { background: rgba(100,180,100,.1); color: #7ec87e; }
+    .badge-q3 { background: rgba(100,150,220,.1); color: #85aae0; }
+    .badge-q4 { background: rgba(180,100,180,.1); color: #c88ec8; }
+    .pub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: .98rem; color: var(--cream); line-height: 1.5;
+      margin-bottom: .6rem;
+    }
+    .pub-journal {
+      font-size: .78rem; color: var(--gold); font-style: italic; margin-bottom: .4rem;
+    }
+    .pub-year { font-size: .72rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+    /* ---------- SKILLS / DOMAINS ---------- */
+    #domains { background: var(--navy); }
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .domain-card {
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 1.5rem;
+      background: rgba(201,168,76,.03);
+      transition: background .25s, border-color .25s;
+    }
+    .domain-card:hover {
+      background: rgba(201,168,76,.07); border-color: rgba(201,168,76,.4);
+    }
+    .domain-icon {
+      font-size: 1.6rem; margin-bottom: .8rem;
+    }
+    .domain-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; color: var(--cream); margin-bottom: .6rem;
+    }
+    .domain-list { list-style: none; }
+    .domain-list li {
+      font-size: .8rem; color: var(--muted); padding: .2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .domain-list li:last-child { border-bottom: none; }
+
+    /* ---------- AWARDS ---------- */
+    #awards { background: var(--navy2); }
+    .awards-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .award-card {
+      background: rgba(201,168,76,.05);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 1.5rem; text-align: center;
+      transition: transform .25s;
+    }
+    .award-card:hover { transform: translateY(-3px); }
+    .award-icon { font-size: 2rem; margin-bottom: .8rem; }
+    .award-title {
+      font-family: 'Playfair Display', serif;
+      font-size: .98rem; color: var(--cream); margin-bottom: .4rem;
+      line-height: 1.4;
+    }
+    .award-year { font-size: .72rem; color: var(--gold); font-family: 'DM Mono', monospace; }
+
+    /* ---------- EDUCATION ---------- */
+    #education { background: var(--navy); }
+    .edu-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .edu-card {
+      border-left: 3px solid var(--gold);
+      padding: 1.2rem 1.5rem;
+      background: rgba(201,168,76,.03);
+    }
+    .edu-year {
+      font-family: 'DM Mono', monospace; font-size: .7rem;
+      color: var(--gold); margin-bottom: .4rem;
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--cream); margin-bottom: .25rem;
+    }
+    .edu-inst { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ---------- CONTACT STRIP ---------- */
+    #contact {
+      background: linear-gradient(135deg, rgba(201,168,76,.08) 0%, rgba(10,14,26,0) 60%),
+                  var(--navy2);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 1200px; margin: auto;
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      justify-content: space-between; align-items: center;
+      padding: 4rem 1.5rem;
+    }
+    .contact-left .section-title { margin-bottom: .5rem; }
+    .contact-left p { color: var(--muted); font-size: .9rem; max-width: 380px; }
+    .contact-links { display: flex; flex-direction: column; gap: .9rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-item-icon {
+      width: 40px; height: 40px; border-radius: 4px;
+      background: rgba(201,168,76,.1); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-size: .9rem; flex-shrink: 0;
+    }
+    .contact-item-text { font-size: .85rem; color: var(--muted); }
+    .contact-item-text a { color: var(--cream); text-decoration: none; }
+    .contact-item-text a:hover { color: var(--gold2); }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem; text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: .72rem; color: var(--muted); letter-spacing: .08em;
+    }
+
+    /* ---------- BACK TO TOP ---------- */
+    #backTop {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 400;
+      width: 42px; height: 42px;
+      background: var(--gold); color: var(--navy);
+      border: none; border-radius: 3px;
+      font-size: 1rem; cursor: pointer;
+      display: none; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(201,168,76,.3);
+      transition: background .2s, transform .2s;
+    }
+    #backTop:hover { background: var(--gold2); transform: translateY(-2px); }
+    #backTop.show { display: flex; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none !important; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-inner { flex-direction: column; }
+    }
+
+    /* scroll progress bar */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: var(--gold); z-index: 1000; width: 0%;
+      transition: width .1s linear;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Dr. A. Dhaliwal</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#domains">Domains</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Open menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#experience" class="mobile-link">Experience</a>
+    <a href="#research" class="mobile-link">Research</a>
+    <a href="#domains" class="mobile-link">Domains</a>
+    <a href="#awards" class="mobile-link">Awards</a>
+    <a href="#education" class="mobile-link">Education</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content reveal">
+    <div class="hero-eyebrow">Research Director &bull; Scopus-Indexed Author</div>
+    <h1 class="hero-name">Dr. <em>Amandeep</em><br>Dhaliwal</h1>
+    <div class="typing-wrapper" id="typingText"><span id="typed"></span><span class="cursor"></span></div>
+    <p class="hero-desc">
+      Academic leader, researcher, and educator with over 16 years in higher education, 
+      specialising in Marketing, Entrepreneurship, and Analytics. Author of 62 peer-reviewed 
+      publications across Scopus- and ABDC-indexed journals. Committed to institutional excellence 
+      and the advancement of scholarly knowledge.
+    </p>
+    <div class="hero-cta">
+      <a href="#research" class="btn-gold">View Publications</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="62">0</div>
+      <div class="stat-label">Total Publications</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="36">0</div>
+      <div class="stat-label">Scopus / ABDC Papers</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="16">0</div>
+      <div class="stat-label">Years in Higher Ed</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="7">0</div>
+      <div class="stat-label">Doctoral Students</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="25">0</div>
+      <div class="stat-label">FDPs Attended</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid reveal">
+      <div>
+        <div class="section-tag">// Profile</div>
+        <h2 class="section-title">Academic <span>Leader</span> &amp; Scholar</h2>
+        <div class="divider"></div>
+        <div class="about-card">
+          <div class="profile-badge">AD</div>
+          <div class="about-meta">
+            <div class="about-name">Dr. Amandeep Dhaliwal</div>
+            <div class="about-role">Research Director · MRIIRS, Faridabad</div>
+          </div>
+          <div class="about-links">
+            <a href="https://www.scopus.com/authid/detail.uri?authorId=57219381980" target="_blank" class="about-link">
+              <div class="about-link-icon">S</div>
+              Scopus Profile
+            </a>
+            <a href="https://scholar.google.com/citations?user=VVHqvCMAAAAJ&hl=en" target="_blank" class="about-link">
+              <div class="about-link-icon">G</div>
+              Google Scholar
+            </a>
+            <a href="https://orcid.org/0000-0002-6545-144" target="_blank" class="about-link">
+              <div class="about-link-icon">O</div>
+              ORCID: 0000-0002-6545-144
+            </a>
+            <a href="https://www.linkedin.com/in/amandeep-dhaliwal-137210245/" target="_blank" class="about-link">
+              <div class="about-link-icon">in</div>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>
+          Dr. Amandeep Dhaliwal is a distinguished academic leader and Research Director at the School 
+          of Leadership &amp; Management, Manav Rachna International Institute of Research &amp; Studies, 
+          Faridabad. With a doctoral degree from BIMTECH–Mohan Lal Sukhadia University, her scholarly 
+          trajectory is anchored in the intersection of marketing, digital entrepreneurship, and analytics.
+        </p>
+        <p>
+          Over a career spanning more than sixteen years in higher education — complemented by five years 
+          of corporate experience — she has developed a reputation as a rigorous scholar and mentor. Her 
+          research has been published in Scopus Q1 journals including <em style="color:var(--gold2)">Food and Humanity</em> and 
+          <em style="color:var(--gold2)">Language &amp; Communication</em>, and she has contributed to Springer, Taylor &amp; Francis, 
+          Wiley, and IGI Global volumes.
+        </p>
+        <p>
+          She has provided strategic leadership on NAAC, NBA, and UGC accreditation, guided Outcome-Based 
+          Education (OBE) implementation, and championed research capacity building across the institution. 
+          Her work bridges the theoretical and the applied, with an enduring commitment to student development 
+          and academic quality.
+        </p>
+        <div class="expertise-tags">
+          <span class="tag">Marketing</span>
+          <span class="tag">Entrepreneurship</span>
+          <span class="tag">Analytics</span>
+          <span class="tag">Digital Technologies</span>
+          <span class="tag">NAAC/NBA/UGC</span>
+          <span class="tag">OBE</span>
+          <span class="tag">AI &amp; MIS</span>
+          <span class="tag">E-Commerce</span>
+          <span class="tag">Social Media</span>
+          <span class="tag">IMC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">// Career</div>
+      <h2 class="section-title">Professional <span>Experience</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jan 2026 – Present</div>
+        <div class="timeline-role">Research Director – Leadership &amp; Business Excellence</div>
+        <div class="timeline-org">School of Leadership &amp; Management, MRIIRS, Faridabad</div>
+        <ul class="timeline-points">
+          <li>Developing and implementing institutional research vision, priorities, and long-term strategy.</li>
+          <li>Organising training programmes, mentoring researchers, and promoting a collaborative research culture.</li>
+          <li>Tracking research performance metrics and preparing reports for management and accreditation bodies.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">May 2025 – Dec 2025</div>
+        <div class="timeline-role">Associate Director – Academics &amp; IQAC Vertical In-charge</div>
+        <div class="timeline-org">School of Leadership &amp; Management, MRIIRS, Faridabad</div>
+        <ul class="timeline-points">
+          <li>Developed and implemented strategies for quality assurance and compliance with academic standards.</li>
+          <li>Contributed to curriculum design, research initiatives, and institutional policy; supported IQAC functions.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Dec 2023 – May 2025</div>
+        <div class="timeline-role">Head of Department &amp; Associate Professor</div>
+        <div class="timeline-org">School of Leadership &amp; Management, MRIIRS, Faridabad</div>
+        <ul class="timeline-points">
+          <li>Successfully led the department through NBA accreditation.</li>
+          <li>Oversaw curriculum design, faculty development, and quality assurance across teaching and research.</li>
+          <li>Managed departmental budgeting and represented the department at institutional and external forums.</li>
+          <li>Ensured regulatory compliance with AICTE, NAAC, and UGC guidelines.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jul 2021 – Present</div>
+        <div class="timeline-role">Associate Professor</div>
+        <div class="timeline-org">School of Leadership &amp; Management, MRIIRS, Faridabad</div>
+        <ul class="timeline-points">
+          <li>Designed and delivered curriculum for postgraduate business management programmes.</li>
+          <li>Supervised dissertations, internships, and student research projects.</li>
+          <li>Published academic research in peer-reviewed journals and conference proceedings.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Jan 2014 – Dec 2017</div>
+        <div class="timeline-role">Head of Department &amp; Assistant Professor</div>
+        <div class="timeline-org">Faculty of Management Studies, MRIIRS, Faridabad</div>
+        <ul class="timeline-points">
+          <li>Led the department's academic and administrative operations.</li>
+          <li>Conducted lectures and workshops; coordinated examinations and placements.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Mar 2010 – Dec 2014</div>
+        <div class="timeline-role">Assistant Professor</div>
+        <div class="timeline-org">Faculty of Management Studies, MRIIRS, Faridabad</div>
+        <ul class="timeline-points">
+          <li>Delivered courses in marketing, IT, and management; contributed to curriculum development.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period">Apr 2005 – Dec 2009</div>
+        <div class="timeline-role">Marketing Manager</div>
+        <div class="timeline-org">Nijjer Agro Foods Pvt. Ltd., Amritsar</div>
+        <ul class="timeline-points">
+          <li>Supervised and executed marketing strategies aligned with organisational goals.</li>
+          <li>Collaborated with cross-functional teams to drive brand growth through campaigns and market research.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">// Publications</div>
+      <h2 class="section-title">Selected <span>Research</span> Publications</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="research-grid reveal">
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q1">Scopus Q1</span>
+        <div class="pub-title">Deconstructing Contemporary Consumer Decision-Making towards Culinary Consumption Patterns</div>
+        <div class="pub-journal">Food and Humanity, 2026</div>
+        <div class="pub-year">DOI: 10.1016/j.foohum.2026.100996</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q1">Scopus Q1</span>
+        <div class="pub-title">The Semiotics of Emojis &amp; Emoticons: Social Hierarchies, Platform Preferences, and Functional Implications</div>
+        <div class="pub-journal">Language &amp; Communication, Vol. 107, 2026</div>
+        <div class="pub-year">DOI: 10.1016/j.langcom.2026.01.003</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q2">Scopus Q2</span>
+        <div class="pub-title">Convergence of Online Flow and AI-Enabled Services: Impact on Awe Experience in E-Tail Customer Journeys</div>
+        <div class="pub-journal">The International Review of Retail, Distribution and Consumer Research, 2025</div>
+        <div class="pub-year">DOI: 10.1080/09593969.2024.2374365</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q2">Scopus Q2</span>
+        <div class="pub-title">Assessing the Deliverables of Beyond-the-Classroom Engagement of Management Students</div>
+        <div class="pub-journal">Higher Education, Skills and Work-Based Learning, 15(2), 2025</div>
+        <div class="pub-year">DOI: 10.1108/HESWBL-06-2023-0131</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q2">Scopus Q2</span>
+        <div class="pub-title">Rapid Response Logistics: Strategies, Models, and Technologies for Effective Supply Chain Management</div>
+        <div class="pub-journal">International Journal of Service Science, Management, Engineering &amp; Technology, 2021</div>
+        <div class="pub-year">DOI: 10.4018/IJSSMET.202111010</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q3">Scopus Q3</span>
+        <div class="pub-title">Navigating Workforce Challenges: A Family Business at a Crossroads</div>
+        <div class="pub-journal">Asian Case Research Journal, 2025</div>
+        <div class="pub-year">DOI: 10.1142/S0218927525500051</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q3">Scopus Q3</span>
+        <div class="pub-title">Adopting 5G-Enabled E-Healthcare for Collaborative Pandemic Management</div>
+        <div class="pub-journal">International Journal of e-Collaboration, 19(1), 2023</div>
+        <div class="pub-year">DOI: 10.4018/IJeC.315781</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q3">Scopus Q3</span>
+        <div class="pub-title">The Mompreneurship Phenomenon: Antecedents and Challenges of Mothers in Business</div>
+        <div class="pub-journal">International Journal of Service Science, Management, Engineering &amp; Technology, 2022</div>
+        <div class="pub-year">DOI: 10.4018/IJSSMET.290334</div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-badge badge-q3">Scopus Q3</span>
+        <div class="pub-title">Towards AI-Driven Transport and Logistics</div>
+        <div class="pub-journal">Lecture Notes in Business Information Processing, Vol. 508, Springer, 2024</div>
+        <div class="pub-year">DOI: 10.1007/978-3-031-60003-6_8</div>
+      </div>
+
+    </div>
+    <div style="margin-top:2rem; text-align:center; reveal">
+      <a href="https://scholar.google.com/citations?user=VVHqvCMAAAAJ&hl=en" target="_blank" class="btn-outline">
+        View All Publications on Google Scholar →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section id="domains">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">// Expertise</div>
+      <h2 class="section-title">Research <span>Domains</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="domain-grid reveal">
+      <div class="domain-card">
+        <div class="domain-icon">📊</div>
+        <div class="domain-name">Marketing &amp; Consumer Behaviour</div>
+        <ul class="domain-list">
+          <li>Digital &amp; Social Media Marketing</li>
+          <li>Sponsorship, Advertising &amp; IMC</li>
+          <li>E-Commerce &amp; Online Retail</li>
+          <li>International Marketing</li>
+          <li>Influencer &amp; Buzz Marketing</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon">🚀</div>
+        <div class="domain-name">Entrepreneurship</div>
+        <ul class="domain-list">
+          <li>Women Entrepreneurship</li>
+          <li>Mompreneurship</li>
+          <li>Entrepreneurial Marketing</li>
+          <li>Micro-enterprise Success Factors</li>
+          <li>Crowdfunding &amp; Capital Access</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon">🤖</div>
+        <div class="domain-name">Technology &amp; AI</div>
+        <ul class="domain-list">
+          <li>AI Voice Bots &amp; Risks</li>
+          <li>AI-Driven Logistics &amp; Transport</li>
+          <li>Metaverse &amp; Digital Frontiers</li>
+          <li>Blockchain Adoption</li>
+          <li>6G Healthcare Integration</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon">📐</div>
+        <div class="domain-name">Analytics &amp; Information Systems</div>
+        <ul class="domain-list">
+          <li>Web Analytics &amp; Data Visualisation</li>
+          <li>Management Information Systems</li>
+          <li>ERP &amp; Decision Support Systems</li>
+          <li>Bibliometric &amp; Meta-Analysis</li>
+          <li>Cloud Computing</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon">🎓</div>
+        <div class="domain-name">Higher Education &amp; Pedagogy</div>
+        <ul class="domain-list">
+          <li>Outcome-Based Education (OBE)</li>
+          <li>NAAC / NBA / UGC Accreditation</li>
+          <li>Student Engagement Models</li>
+          <li>Curriculum Design &amp; Development</li>
+          <li>NEP 2020 Implementation</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-icon">💼</div>
+        <div class="domain-name">Organisational &amp; Health Management</div>
+        <ul class="domain-list">
+          <li>Employee Satisfaction &amp; Welfare</li>
+          <li>Healthcare Service Operations</li>
+          <li>Supply Chain Management</li>
+          <li>Mental Health &amp; Wellbeing</li>
+          <li>ESG &amp; Corporate Governance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">// Recognition</div>
+      <h2 class="section-title">Awards &amp; <span>Honours</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="awards-grid reveal">
+      <div class="award-card">
+        <div class="award-icon">🏆</div>
+        <div class="award-title">Best Researcher Award</div>
+        <div class="award-year">MRIIRS · 2024</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🎖️</div>
+        <div class="award-title">Karmsu Kaushalam Award – Best Employee</div>
+        <div class="award-year">MRIIRS · 2023</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">📜</div>
+        <div class="award-title">Best Research Paper Award</div>
+        <div class="award-year">MRCON · 2023 &amp; 2020</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🌐</div>
+        <div class="award-title">Stough Young Scholar Award</div>
+        <div class="award-year">George Mason University · 2015</div>
+      </div>
+    </div>
+    <div style="margin-top: 3rem;" class="reveal">
+      <div class="section-tag" style="margin-bottom: 1rem;">// Conferences &amp; Presentations</div>
+      <div style="display:flex; flex-wrap:wrap; gap:.6rem;">
+        <span class="tag">IIM Kozhikode</span>
+        <span class="tag">IIM Nagpur</span>
+        <span class="tag">IIM Shillong</span>
+        <span class="tag">IIM Jammu</span>
+        <span class="tag">IIFT New Delhi</span>
+        <span class="tag">MDI Murshidabad</span>
+        <span class="tag">UN Policy Meet</span>
+        <span class="tag">BIMTECH Greater Noida</span>
+        <span class="tag">Panjab University</span>
+        <span class="tag">Amity University Noida</span>
+        <span class="tag">JECRC University Jaipur</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-tag">// Qualifications</div>
+      <h2 class="section-title">Academic <span>Education</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-year">2019</div>
+        <div class="edu-degree">Doctorate – Ph.D.</div>
+        <div class="edu-inst">BIMTECH, Greater Noida / Mohan Lal Sukhadia University, Udaipur<br>
+        <em style="color:var(--gold); font-style:italic; font-size:.78rem;">Impact of Factors Influencing Success of Women Entrepreneurs in Microenterprises in Delhi NCT</em><br>
+        Supervisor: Dr. Arun Sahay</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">2012</div>
+        <div class="edu-degree">UGC NET – Management</div>
+        <div class="edu-inst">University Grants Commission</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">2001 – 2003</div>
+        <div class="edu-degree">MBA – Marketing &amp; Information Technology</div>
+        <div class="edu-inst">Guru Nanak Dev University, Amritsar<br>
+        Add-on Certificate in French</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">1998 – 2001</div>
+        <div class="edu-degree">Graduation – B.Com</div>
+        <div class="edu-inst">Guru Nanak Dev University, Amritsar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding: 0;">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-tag">// Connect</div>
+      <h2 class="section-title" style="margin-bottom:.5rem;">Let's <span>Connect</span></h2>
+      <p>Open to research collaborations, scholarly exchanges, FDP invitations, and academic engagements worldwide.</p>
+    </div>
+    <div class="contact-links reveal">
+      <div class="contact-item">
+        <div class="contact-item-icon">✉</div>
+        <div class="contact-item-text">
+          <div style="font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem;">Email</div>
+          <a href="mailto:aman13001@gmail.com">aman13001@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div class="contact-item-text">
+          <div style="font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem;">Location</div>
+          Faridabad, Haryana, India
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">in</div>
+        <div class="contact-item-text">
+          <div style="font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem;">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/amandeep-dhaliwal-137210245/" target="_blank">linkedin.com/in/amandeep-dhaliwal-137210245</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">S</div>
+        <div class="contact-item-text">
+          <div style="font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem;">Scopus</div>
+          <a href="https://www.scopus.com/authid/detail.uri?authorId=57219381980" target="_blank">Author ID: 57219381980</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Dr. Amandeep Dhaliwal · All Rights Reserved · ORCID: 0000-0002-6545-144
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+  // ---- TYPING ANIMATION ----
+  const phrases = [
+    "Research Director · MRIIRS, Faridabad",
+    "Scopus-Indexed Author · 62 Publications",
+    "Marketing & Entrepreneurship Scholar",
+    "Award-Winning Educator · 16+ Years",
+    "NAAC / NBA Accreditation Expert",
+    "Mentor · Innovator · Academic Leader"
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const typed = document.getElementById('typed');
+
+  function typeLoop() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      typed.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(typeLoop, 1800); return; }
+      setTimeout(typeLoop, 60);
+    } else {
+      typed.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(typeLoop, 400); return; }
+      setTimeout(typeLoop, 35);
+    }
+  }
+  typeLoop();
+
+  // ---- HAMBURGER ----
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ---- SCROLL PROGRESS ----
+  const bar = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    bar.style.width = pct + '%';
+  });
+
+  // ---- BACK TO TOP ----
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 500);
+  });
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ---- REVEAL ON SCROLL ----
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ---- COUNT UP ----
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      let start = 0;
+      const step = Math.ceil(target / 50);
+      const interval = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = start + '+';
+        if (start >= target) clearInterval(interval);
+      }, 30);
+      countObserver.unobserve(el);
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+</script>
+
+</body>
+</html>
